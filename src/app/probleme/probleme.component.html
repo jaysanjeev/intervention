@@ -2,17 +2,61 @@
     <br/>
     <div class="card">
       <div class="card-header text-white bg-secondary">
-	<h1>Decaler un probleme</h1>
+	<h1>Declaler un probleme</h1>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <h5 class="card-title">Declarer un probleme</h5>
+        <p class="card-text">Veuillez renseigner les zones suivante et soumettre votre demande</p>
       </div>
       <div class="card-footer">
-            <!-- Bouton save ici -->
-            <button class="btn btn-primary" type="submit">
-                  Sauvegarder
-            </button>    
+            <div class="card-text">
+                  <form
+                  class="form-horizontal"
+                  novalidate
+                  (ngSubmit)="save()"
+                  [formGroup]="problemeForm"
+                >
+                  <label for="prenomId" class="col-md-2 col-form-label text-right"
+                    >Prénom :</label
+                >
+                  <input
+                    class="form-control"
+                    id="prenomId"
+                    type="text"
+                    placeholder="Votre prénom ici (obligatoire)"
+                    formControlName="prenom"
+                    [ngClass]="{
+                      'is-valid':
+                        (problemeForm.get('prenom').touched ||
+                          problemeForm.get('prenom').dirty) &&
+                        problemeForm.get('prenom').valid,
+                      'is-invalid':
+                        (problemeForm.get('prenom').touched ||
+                          problemeForm.get('prenom').dirty) &&
+                        !problemeForm.get('prenom').valid
+                    }"
+                    
+                  />
+                  <span class="form-text" *ngIf="(problemeForm.get('prenom').touched ||
+                     problemeForm.get('prenom').dirty) &&
+                     (problemeForm.get('prenom').errors)">
+            <span *ngIf=" problemeForm.get('prenom').errors['required']">
+             <small class="text-muted">
+            Merci de saisir votre prénom.
+             </small>
+             </span>
+             <span *ngIf=" problemeForm.get('prenom').errors['minlength']">
+             <small class="text-muted">
+            Veuillez entrer plus de caracteres
+             </small>
+             </span>
+</span> 
+                  
+                </form>
+                <button class="btn btn-primary" type="submiy">Sauvegarder</button>
+                  
+                </div>
+             
       </div>
     </div>
 </div>
