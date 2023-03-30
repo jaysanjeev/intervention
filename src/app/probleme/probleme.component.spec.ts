@@ -50,13 +50,13 @@ describe('ProblemeComponent', () => {
   it('champs prenom valide avec 10 espace',() => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue(' '.repeat(10));
-    expect(zone.valid).toBeTruthy();
+    expect(zone.invalid).toBeTruthy();
   });
 
   it('champs prenom valide avec 1 caractere et 2 espace',() => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue('a  ');
-    expect(zone.valid).toBeTruthy();
+    expect(zone.invalid).toBeTruthy();
   });
 
 
