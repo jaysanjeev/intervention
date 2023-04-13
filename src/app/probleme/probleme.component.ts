@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ZonesValidateur } from '../shared/longeur-minimum/longeur-minimum.component';
 import { ITypeProbleme } from './typeprobleme';
 import { TypeproblemeService } from './typeprobleme.service';
+import { emailMatcherValidator } from '../shared/email-matcher/email-matcher.component.spec';
 
 @Component({
   selector: 'app-probleme',
@@ -34,14 +35,12 @@ export class ProblemeComponent {
    save(): void {
    }
 
-   appliquerNotifications(): void {
+   appliquerNotifications(notifyVia: string): void {
     const courrielGroupControl = this.problemeForm.get('courrielGroup');
     const courrielControl = this.problemeForm.get('courrielGroup.courriel');
     const courrielConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
     const telephoneControl = this.problemeForm.get('telephone');
     
-    
-     
     courrielControl.clearValidators();
     courrielControl.reset();
     courrielControl.disable();
@@ -51,7 +50,24 @@ export class ProblemeComponent {
     telephoneControl.clearValidators();
     telephoneControl.reset(); 
     telephoneControl.disable();
+
+    if (notifyVia === 'courriel') {
+      courrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])])
+      courrielControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      courrielConfirmationControl.setValidators([Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      courrielControl.enable();
+      courrielConfirmationControl.enable();
+      } else {
+      if (notifyVia === 'telephone') {
+      telephoneControl.setValidators([Validators.required, Validators.minLength(10),  Validators.maxLength(10), Validators.pattern('[0-9]+')]);
+      telephoneControl.enable();
+      }
+      courrielControl.updateValueAndValidity();
+      courrielConfirmationControl.updateValueAndValidity();
+      telephoneControl.updateValueAndValidity();
+      }
+      }
 }
-   }
+   
 
 
