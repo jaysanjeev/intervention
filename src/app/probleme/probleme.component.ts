@@ -62,6 +62,7 @@ export class ProblemeComponent {
       telephoneControl.setValidators([Validators.required, Validators.minLength(10),  Validators.maxLength(10), Validators.pattern('[0-9]+')]);
       telephoneControl.enable();
       }
+      
       courrielControl.updateValueAndValidity();
       courrielConfirmationControl.updateValueAndValidity();
       telephoneControl.updateValueAndValidity();
