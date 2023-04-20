@@ -25,12 +25,18 @@ export class ProblemeComponent {
            courrielConfirmation: [{value: '', disabled: true}],
          }),
        telephone: [{value: '', disabled: true}],
+       notification:['pasnotification'],
+       noUnite:[],
+       descriptionProbleme:['',Validators.required]
+
     });
 
     this.typeprobleme.obtenirTypesProbleme()
         .subscribe(typesProbleme => this.typeproblemeService = typesProbleme,
                    error => this.errorMessage = <any>error); 
 
+
+    this.problemeForm.get('notification').valueChanges.subscribe(value => this.appliquerNotifications(value));
    }
    save(): void {
    }
